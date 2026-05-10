@@ -37,6 +37,9 @@ execution_metrics = sa.Table(
 )
 
 def upgrade() -> None:
+    from sqlalchemy import inspect
+    if inspect(op.get_bind()).has_table("evo_agent_processor_execution_metrics"):
+        return
     """Upgrade schema."""
     op.create_table(
         'evo_agent_processor_execution_metrics',
